@@ -1,7 +1,11 @@
+import grails.converters.JSON
+import users.User
+import UserMarshaller
+
 class BootStrap {
 
     def init = { servletContext ->
-    }
-    def destroy = {
+
+        JSON.registerObjectMarshaller(User) { UserMarshaller.marshall(it) }
     }
 }
