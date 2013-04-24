@@ -17,9 +17,7 @@ class User {
     // Additional fields for project creators
     String identificationType
     String identificationNumber
-    String state
-    String city
-    String neighborhood
+    String locationId
     String address
     String zipCode
     String areaCode
@@ -42,13 +40,11 @@ class User {
 
         identificationType(nullable:true, blank:false, maxSize:5)
         identificationNumber(nullable:true, blank:false, maxSize:20)
-        state(blank:false, maxSize:50)
-        city(blank:false, maxSize:50)
-        neighborhood(blank:false, maxSize:50)
-        address(blank:false, maxSize:100)
-        zipCode(blank:false, maxSize:15)
-        areaCode(blank:false, maxSize:10)
-        phoneNumber(blank:false, maxSize:40)
+        locationId(nullable: true, blank: false, maxSize: 40)
+        address(nullable:true, blank:false, maxSize:100)
+        zipCode(nullable:true, blank:false, maxSize:15)
+        areaCode(nullable:true, blank:false, maxSize:10)
+        phoneNumber(nullable:true, blank:false, maxSize:40)
         phoneExtension(nullable:true, blank:false, maxSize:20)
     }
 

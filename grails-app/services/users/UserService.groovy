@@ -1,5 +1,7 @@
 package users
 
+import org.grails.datastore.mapping.query.Restrictions
+
 class UserService {
 
     def getUserById(Integer userId) {
@@ -29,5 +31,23 @@ class UserService {
         }
 
         return missingParameters
+    }
+
+    def createUser(def data) {
+        User newUser = new User()
+        newUser.email = data.email
+        newUser.countryId = data.country_id
+        newUser.password = data.password
+        newUser.firstName = data.first_name
+        newUser.lastName = data.last_name
+        newUser.signupDate = new Date()
+        newUser.lastLoginDate = newUser.signupDate
+
+        newUser.validate()
+        return newUser
+    }
+
+    def saveUser(User user) {
+        return user.save(flush: true)
     }
 }

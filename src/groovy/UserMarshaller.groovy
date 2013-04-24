@@ -22,9 +22,7 @@ class UserMarshaller {
         identificationMap.number = user.identificationNumber
         userMap.identification = identificationMap
 
-        locationMap.state = user.state
-        locationMap.city = user.city
-        locationMap.neighborhood = user.neighborhood
+        locationMap.location_id = user.locationId
         locationMap.address = user.address
         locationMap.zip_code = user.zipCode
         userMap.location = locationMap

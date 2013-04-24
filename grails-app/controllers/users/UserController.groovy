@@ -46,24 +46,24 @@ class UserController {
             return
         }
 
-        User newUser = new User()
-        newUser.email = data.email
-        newUser.countryId = data.country_id
-        newUser.password = data.password
-        newUser.firstName = data.first_name
-        newUser.lastName = data.last_name
-        newUser.signupDate = new Date()
-        newUser.lastLoginDate = newUser.signupDate
+        User newUser = userService.createUser(data)
 
-        if (newUser.hasErrors()) {
-            response.status = 400
-            render helperService.renderError("User has errors", "403")
+        if (newUser.hasErrors()){
+            response.status =  403 // Forbidden
+            render helperService.renderError("Error occurred creating user. Please validate input fields.", "403")
         }
 
-        response.status = 201
-        render newUser.signupDate
-        return
+        if (userService.saveUser(newUser)) {
+            response.status = 201 // Created
+            render newUser.signupDate
+            return
+        } else {
+            response.status =  500 // Forbidden
+            render helperService.renderError("Unknown error saving user.", "500")
+        }
     }
+
+    //TODO: Create multiget method
 
     def updateUser() {
 
