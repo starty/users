@@ -66,6 +66,25 @@ class UserController {
     //TODO: Create multiget method
 
     def updateUser() {
+        if(!params.userId) {
+            response.status = 403 // Forbidden
+            render helperService.renderError("Parameter 'userId' is mandatory.", "403")
+            return
+        }
 
+        def user = userService.getUserById(Integer.parseInt(params.userId))
+
+        if (user) {
+            user = userService.updateUser(user, request.JSON)
+
+            response.status = 200
+            render user as JSON
+            return
+        }
+        else{
+            response.status = 404 // Forbidden
+            render helperService.renderError("User with id "+params.userId+" not found.", "404")
+            return
+        }
     }
 }

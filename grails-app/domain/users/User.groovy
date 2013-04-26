@@ -27,7 +27,7 @@ class User {
 
     static constraints = {
         // Grails has nullable:false by default
-        userId(unique:true, blank:false)
+        userId(blank:false)
         email(unique:true, blank:false, maxSize:100, email:true)
         countryId(blank:false, maxSize:3)
         password(blank:false, size: 6..20)

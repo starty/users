@@ -50,4 +50,23 @@ class UserService {
     def saveUser(User user) {
         return user.save(flush: true)
     }
+
+    def updateUser(User user, def data) {
+        user.email = data.email ?: user.email
+        user.password = data.password ?: user.password
+        user.firstName = data.first_name ?: user.firstName
+        user.lastName = data.last_name ?: user.lastName
+        user.identificationType = data.identification_type ?: user.identificationType
+        user.identificationNumber = data.identification_number ?: user.identificationNumber
+        user.locationId = data.location_id ?: user.locationId
+        user.address = data.address ?: user.address
+        user.zipCode = data.zip_code ?: user.zipCode
+        user.areaCode = data.area_code ?: user.areaCode
+        user.phoneNumber = data.phone_number ?: user.phoneNumber
+        user.phoneExtension = data.phone_extension ?: user.phoneExtension
+
+        user.save(flush: true)
+
+        return user
+    }
 }
