@@ -65,6 +65,7 @@ class UserService {
         user.phoneNumber = data.phone_number ?: user.phoneNumber
         user.phoneExtension = data.phone_extension ?: user.phoneExtension
 
+        user.validate()
         user.save(flush: true)
 
         return user

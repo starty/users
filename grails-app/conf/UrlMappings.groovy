@@ -6,7 +6,7 @@ class UrlMappings {
         }
 
         "/" (controller: "user") {
-            action = [ POST: "createUser"]
+            action = [ POST: "createUser", GET: "getUsersByIds"]
         }
 	}
 }

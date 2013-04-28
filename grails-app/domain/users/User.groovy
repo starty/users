@@ -12,7 +12,6 @@ class User {
     Date signupDate
     Date lastLoginDate
     String status = "pending"
-    String userType = "normal" // normal(by default) or project creator
 
     // Additional fields for project creators
     String identificationType
@@ -36,7 +35,6 @@ class User {
         signupDate(blank:false)
         lastLoginDate(blank:false)
         status(blank:false, maxSize:20)
-        userType(blank:false, maxSize:20)
 
         identificationType(nullable:true, blank:false, maxSize:5)
         identificationNumber(nullable:true, blank:false, maxSize:20)

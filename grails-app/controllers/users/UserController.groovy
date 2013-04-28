@@ -1,6 +1,9 @@
 package users
 
 import grails.converters.JSON
+import groovyx.net.http.HTTPBuilder
+import static groovyx.net.http.Method.GET
+
 
 class UserController {
 
@@ -63,8 +66,6 @@ class UserController {
         }
     }
 
-    //TODO: Create multiget method
-
     def updateUser() {
         if(!params.userId) {
             response.status = 403 // Forbidden
@@ -87,4 +88,57 @@ class UserController {
             return
         }
     }
+
+    //TODO: Create multiget method
+    def getUsersByIds() {
+        if(!params.ids) {
+            response.status = 403 // Forbidden
+            render helperService.renderError("Parameter 'ids' is mandatory.", "403")
+            return
+        }
+
+        String[] ids = params.ids.split(",")
+
+        if (!(ids.size() >= 1)) {
+            response.status = 403 // Forbidden
+            render helperService.renderError("A minimum amount of one id is mandatory.", "403")
+            return
+        }
+
+        def usersMap = [:]
+
+        ids.each { id ->
+            User user = userService.getUserById(Integer.parseInt(id))
+            if (user)
+                usersMap.put(user.getUserId(), user)
+        }
+
+        response.status = 200 // OK
+        render usersMap as JSON
+        return
+    }
+
+    /*
+    def test(){
+        //192.168.1.144
+
+        def http = new HTTPBuilder('http://192.168.1.144:8090/mockserver/category/1')
+
+        http.request(GET, groovyx.net.http.ContentType.JSON ) { req ->
+            headers.'User-Agent' = "Mozilla/5.0 Firefox/3.0.4"
+            headers.Accept = 'application/json'
+
+            response.success = { resp, reader ->
+                assert resp.statusLine.statusCode == 200
+                println "Got response: ${resp.statusLine}"
+                println "Content-Type: ${resp.headers.'Content-Type'}"
+                println reader.text
+            }
+
+            response.'404' = {
+                println 'Not found'
+            }
+        }
+    }
+    */
 }

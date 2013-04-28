@@ -16,7 +16,11 @@ class UserMarshaller {
         userMap.signup_date = user.signupDate
         userMap.last_login_date = user.lastLoginDate
         userMap.status = user.status
-        userMap.user_type = user.userType
+
+        if (!user.identificationNumber)
+            userMap.user_type = "normal"
+        else
+            userMap.user_type = "project_creator"
 
         identificationMap.type = user.identificationType
         identificationMap.number = user.identificationNumber
